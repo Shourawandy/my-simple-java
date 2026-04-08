@@ -22,7 +22,7 @@ pipeline {
 
         stage('maven intregration test') {
             steps {
-                 sh {mavenIntregrationTest() }
+                 script {mavenIntregrationTest() }
         }
 
         stage('Archive') {
