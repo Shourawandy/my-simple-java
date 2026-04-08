@@ -11,7 +11,8 @@ pipeline {
             }
         }
 
-        stage('unitTest') {
+        stage('maven test') {
+        
             steps {
                 script {
                     mvnTest()
@@ -19,10 +20,9 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('maven intregration test') {
             steps {
-                sh 'echo Running tests...'
-            }
+                 sh {mavenIntregrationTest() }
         }
 
         stage('Archive') {
