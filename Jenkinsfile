@@ -1,14 +1,14 @@
 @Library('my-jenkins-shared-lib') _
 pipeline {
     agent {label 'agent-01'}
-
-    stages {
-        parameters {
+    parameters {
     choice(
         name: 'action',
         choices: ['create', 'delete'],
         description: 'Select what you want to do: Create or Destroy the application')
                     }
+
+    stages {
         stage('Git-Checkout') {
             steps {
               gitCheckout (
