@@ -24,22 +24,28 @@ pipeline {
         stage('Maven Test') {
             when { expression { params.action == 'create' } }
             steps {
-                mvnTest()                     // This one is correct
+                mvnTest()
             }
         }
 
         stage('Maven Integration Test') {
             when { expression { params.action == 'create' } }
             steps {
-                mavenIntregrationTest()       // ← Must match exactly (with "e")
+                mavenIntregrationTest()   // update after renaming
             }
         }
 
         stage('Static Code Analysis: SonarQube') {
             when { expression { params.action == 'create' } }
             steps {
-                staticCodeAnalaysis()         // ← Must match exactly
+                staticCodeAnalaysis()     // update after renaming
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline execution completed'
         }
     }
 }
