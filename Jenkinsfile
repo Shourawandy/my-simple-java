@@ -11,9 +11,11 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('unitTest') {
             steps {
-                sh 'echo Building...'
+                script {
+                    mvnTest()
+                }
             }
         }
 
