@@ -24,21 +24,21 @@ pipeline {
         stage('Maven Test') {
             when { expression { params.action == 'create' } }
             steps {
-                mvnTest()                    // try without script{} first
+                mvnTest()                     // This one is correct
             }
         }
 
         stage('Maven Integration Test') {
             when { expression { params.action == 'create' } }
             steps {
-                mavenIntegrationTest()       // corrected spelling
+                mavenIntregrationTest()       // ← Must match exactly (with "e")
             }
         }
 
         stage('Static Code Analysis: SonarQube') {
             when { expression { params.action == 'create' } }
             steps {
-                staticCodeAnalysis()         // corrected spelling
+                staticCodeAnalaysis()         // ← Must match exactly
             }
         }
     }
