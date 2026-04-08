@@ -6,8 +6,8 @@ pipeline {
         stage('Git-Checkout') {
             steps {
               gitCheckout { 
-               branch = "main"
-               url ="https://github.com/Shourawandy/my-simple-java.git"}
+               branch: = "main"
+               url: ="https://github.com/Shourawandy/my-simple-java.git"}
             }
         }
 
