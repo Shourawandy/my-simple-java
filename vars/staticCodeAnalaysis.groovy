@@ -1,5 +1,5 @@
 def call() {
-    echo " Starting SonarQube Static Code Analysis..."
+    echo "🚀 Starting SonarQube Static Code Analysis..."
 
     withSonarQubeEnv('sonar-qube-api') {
         withCredentials([string(credentialsId: 'sonar-qube-test', variable: 'SONAR_TOKEN')]) {
@@ -11,5 +11,5 @@ def call() {
         }
     }
 
-    echo " SonarQube analysis completed."
+    echo "✅ SonarQube analysis completed."
 }
