@@ -1,8 +1,9 @@
 def call() {
     echo "🚀 Starting SonarQube Static Code Analysis..."
 
-    withSonarQubeEnv('SonarQube') {      // ← IMPORTANT: Change 'SonarQube' to the exact name you configured in Jenkins
-        sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=todo-web-app'
+    // Change 'SonarQube' below to the exact name you configured in Jenkins
+    withSonarQubeEnv('sonar-qube-api') {
+        sh 'mvn clean verify sonar:sonar'
     }
 
     echo "✅ SonarQube analysis completed."
