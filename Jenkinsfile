@@ -3,6 +3,12 @@ pipeline {
     agent {label 'agent-01'}
 
     stages {
+        parameters {
+    choice(
+        name: 'action',
+        choices: ['create', 'delete'],
+        description: 'Select what you want to do: Create or Destroy the application')
+                    }
         stage('Git-Checkout') {
             steps {
               gitCheckout (
@@ -12,7 +18,7 @@ pipeline {
         }
 
         stage('maven test') {
-        
+        when { expression { return params.action == 'create' } }
             steps {
                 script {
                     mvnTest()
@@ -21,17 +27,15 @@ pipeline {
         }
 
         stage('maven intregration test') {
+            when { expression { return params.action == 'create' } }
             steps {
                  script {mavenIntregrationTest() }
         }}
 
-        stage('Archive') {
-            when {
-                expression { return env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'master' }
-            }
+        stage('static code analysis:sonarqube') {
+            when {expression { return params.action == 'create' } }
             steps {
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-            }
+                    script {staticCodeAnalaysis() }
         }
     }
 
