@@ -1,10 +1,13 @@
+@Library('my-jenkins-shared-lib') _
 pipeline {
-    agent any
+    agent {label 'agent-01'}
 
     stages {
         stage('Git-Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Shourawandy/my-simple-java.git'
+              gitCheckout { 
+               branch = "main"
+               url ="https://github.com/Shourawandy/my-simple-java.git"}
             }
         }
 
