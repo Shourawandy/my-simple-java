@@ -9,6 +9,21 @@ pipeline {
             choices: ['create', 'delete'],
             description: 'Select what you want to do: Create or Destroy the application'
         )
+        string(
+            name: 'ImageName',
+            defaultValue: 'java-app',
+            description: 'name of the docker image to be built'
+        )
+        string(
+            name: 'ImageTag',
+            defaultValue: 'latest',
+            description: 'tag of the docker image to be built'
+        )
+        string(
+                name: 'ApplicationName',
+                defaultValue: 'java-app',
+                description: 'name of the application to be deployed'
+            )
     }
 
     stages {
@@ -57,6 +72,18 @@ pipeline {
             when { expression { params.action == 'create' } }
             steps {
               mvnBuild(goals: 'clean package -DskipTests')
+            }
+        }
+        stage('maven build') {
+            when { expression { params.action == 'create' } }
+            steps {
+              mvnBuild(goals: 'clean package -DskipTests')
+            }
+        }
+        stage('Docker image build') {
+            when { expression { params.action == 'create' } }
+            steps {
+              dockerBuild(project: 'my-java-app', ImageTag: 'latest', hubUser: 'soroaredu')
             }
         }
     }
