@@ -78,7 +78,11 @@ pipeline {
         stage('Docker image build') {
             when { expression { params.action == 'create' } }
             steps {
-              dockerBuild(params.ImageName, params.ImageTag,params.ApplicationName)
+               dockerBuild(
+            params.ImageName,
+            params.ImageTag,
+            params.DockerHubUser
+        )
             }
         }
     }
