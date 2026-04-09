@@ -41,17 +41,25 @@ pipeline {
                 staticCodeAnalaysis()     // update after renaming
             }
         }
-       stage("Quality Gate: SonarQube") {
-    steps {
-        script {
-            // This pauses the pipeline and waits for the SonarQube webhook
-            def qg = waitForQualityGate() 
-            if (qg.status != 'OK') {
-                error "Pipeline aborted due to quality gate failure: ${qg.status}"
+        stage('Quality Gate: SonarQube') {
+            when { expression { params.action == 'create' } }
+            steps {
+                script{
+                   
+                def SonarQubecredentialsId = 'sonar-qube-test'
+                QualityGateStatus(SonarQubecredentialsId)
+               }
             }
         }
-    }
-}
+        stage('maven build') {
+            when { expression { params.action == 'create' } }
+            steps {
+                script{
+                   
+                    mavBuild()
+               }
+            }
+        }
     }
 
     post {
