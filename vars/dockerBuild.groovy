@@ -6,4 +6,3 @@ def call(String project, String ImageTag, hubUser) {
     """
     echo "✅ Docker image ${imageName}:${tag} built successfully."
 }
-]
