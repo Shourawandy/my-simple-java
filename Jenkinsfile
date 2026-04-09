@@ -56,8 +56,8 @@ pipeline {
         stage('maven build') {
             when { expression { params.action == 'create' } }
             steps {
-                // Call the method from your shared library directly
-                mvnBuild() 
+              mvnBuild(goals: 'clean package -DskipTests') 
+              mvnBuild()
             }
         }
     }
