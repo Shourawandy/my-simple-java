@@ -56,8 +56,7 @@ pipeline {
         stage('maven build') {
             when { expression { params.action == 'create' } }
             steps {
-              mvnBuild(goals: 'clean package -DskipTests') 
-              mvnBuild()
+              mvnBuild(goals: 'clean package -DskipTests')
             }
         }
     }
