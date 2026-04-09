@@ -56,7 +56,7 @@ pipeline {
             when { expression { params.action == 'create' } }
             steps {
            
-                    mavBuild()
+                    mvnBuild()
             }
         }
     }
