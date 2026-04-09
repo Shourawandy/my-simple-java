@@ -41,22 +41,23 @@ pipeline {
                 staticCodeAnalaysis()     // update after renaming
             }
         }
-        stage('Quality Gate: SonarQube') {
+     stage('Quality Gate: SonarQube') {
             when { expression { params.action == 'create' } }
             steps {
-                script{
-                def qg = waitForQualityGate() 
-            if (qg.status != 'OK') {
-                error "Pipeline aborted due to quality gate failure: ${qg.status}"
-               }
-            }
+                script {
+                    def qg = waitForQualityGate() 
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    }
+                }
             }
         }
+
         stage('maven build') {
             when { expression { params.action == 'create' } }
             steps {
-           
-                    mvnBuild()
+                // Call the method from your shared library directly
+                mvnBuild() 
             }
         }
     }
