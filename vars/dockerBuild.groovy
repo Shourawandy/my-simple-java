@@ -1,8 +1,11 @@
-def call(String project, String ImageTag, hubUser) {
-    echo "🚀 Building Docker image: ${imageName}:${tag}"
-    sh """docker image build -t ${hubUser}/${project} .
-    docker image tag ${hubUser}/${project} ${hubUser}/${project}:${ImageTag}
-    docker image tag ${hubUser}/${project} ${hubUser}/${project}:latest
+def call(String imageName, String imageTag, String hubUser) {
+
+    echo "🚀 Building Docker image: ${hubUser}/${imageName}:${imageTag}"
+
+    sh """
+        docker build -t ${hubUser}/${imageName}:${imageTag} .
+        docker tag ${hubUser}/${imageName}:${imageTag} ${hubUser}/${imageName}:latest
     """
-    echo "✅ Docker image ${imageName}:${tag} built successfully."
+
+    echo "✅ Docker image ${hubUser}/${imageName}:${imageTag} built successfully."
 }
