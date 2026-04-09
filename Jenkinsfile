@@ -41,6 +41,16 @@ pipeline {
                 staticCodeAnalaysis()     // update after renaming
             }
         }
+        stage('Quality Gate: SonarQube') {
+            when { expression { params.action == 'create' } }
+            steps {
+                script{
+                   
+                def SonarQubecredentialsId = 'sonar-qube-test'
+                QualityGateStatus(SonarQubecredentialsId)
+               }
+            }
+        }
     }
 
     post {
