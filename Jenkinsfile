@@ -45,9 +45,9 @@ pipeline {
             when { expression { params.action == 'create' } }
             steps {
                 script{
-                   
-                def SonarQubecredentialsId = 'sonar-qube-test'
-                QualityGateStatus(SonarQubecredentialsId)
+                def qg = waitForQualityGate() 
+            if (qg.status != 'OK') {
+                error "Pipeline aborted due to quality gate failure: ${qg.status}"
                }
             }
         }
