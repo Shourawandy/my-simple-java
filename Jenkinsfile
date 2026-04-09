@@ -74,16 +74,11 @@ pipeline {
               mvnBuild(goals: 'clean package -DskipTests')
             }
         }
-        stage('maven build') {
-            when { expression { params.action == 'create' } }
-            steps {
-              mvnBuild(goals: 'clean package -DskipTests')
-            }
-        }
+
         stage('Docker image build') {
             when { expression { params.action == 'create' } }
             steps {
-              dockerBuild(project: 'my-java-app', ImageTag: 'latest', hubUser: 'soroaredu')
+              dockerBuild(params.ImageName, params.ImageTag,params.ApplicationName)
             }
         }
     }
